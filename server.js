@@ -22,7 +22,7 @@ const aiRoutes = require("./routes/ai");
 const aiMealRoutes = require("./routes/aiMeal");
 
 const app = express();
-const cors = require("cors");
+
 // ✅ Middleware
 app.use(
   cors({
