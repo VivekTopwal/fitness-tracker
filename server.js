@@ -24,14 +24,14 @@ const aiMealRoutes = require("./routes/aiMeal");
 const app = express();
 
 // ✅ Middleware
-app.use(
-  cors({
-    origin: "https://fitness-tracker-frontend-alpha.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "https://fitness-tracker-frontend-alpha.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
+
+app.options("*", cors());
 
 
 
