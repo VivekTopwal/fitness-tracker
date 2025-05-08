@@ -24,7 +24,27 @@ const aiMealRoutes = require("./routes/aiMeal");
 const app = express();
 
 // ✅ Middleware
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://fitness-tracker-frontend-alpha.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed from this origin: " + origin));
+      }
+    },
+    credentials: true,
+  })
+);
+
+
+
 app.use(bodyParser.json());
 app.use(express.json());
 
