@@ -25,7 +25,10 @@ const app = express();
 
 
 // Allow CORS from your frontend domain
-const allowedOrigins = ["https://fitness-tracker-frontend-alpha.vercel.app"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://fitness-tracker-frontend-alpha.vercel.app"
+];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -35,7 +38,7 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
+  credentials: true
 }));
 
 
