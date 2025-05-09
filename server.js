@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("./cron/reminderScheduler");
 
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");  // Optional if using express.json()
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
@@ -24,19 +24,19 @@ const aiMealRoutes = require("./routes/aiMeal");
 const app = express();
 
 // ✅ Middleware
-app.use(cors({
+const corsOptions = {
   origin: "https://fitness-tracker-frontend-alpha.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-}));
+};
 
-app.options("*", cors());
+app.use(cors(corsOptions));
 
-
-
-app.use(bodyParser.json());
+// Use either bodyParser.json() or express.json(), not both
 app.use(express.json());
+// If you prefer bodyParser (or need special options), you could use:
+// app.use(bodyParser.json());
 
 // ✅ Serve uploaded images
 const uploadDir = path.join(__dirname, "uploads");
@@ -57,6 +57,7 @@ app.use("/api/ai", aiRoutes);
 app.use("/api/ai-meal", aiMealRoutes);
 
 console.log("✅ aiMealRoutes loaded");
+
 // ✅ MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -69,5 +70,5 @@ app.get("/", (req, res) => {
 });
 
 // ✅ Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
