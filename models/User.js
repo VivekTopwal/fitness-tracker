@@ -6,6 +6,12 @@ const UserSchema = new mongoose.Schema(
   email: { type: String, required: true, unique: true },
   fcmToken: String,
   password: { type: String, required: true },
+
+  avatar: String,
+  role: { type: String, default: "user" },
+  authType: { type: String, default: "local" },
+
+
   bio: { type: String, default: "" },  // ✅ Ensure bio exists
   fitnessGoal: { type: String, default: "" },  // ✅ Ensure fitnessGoal exists
   profilePic: { type: String, default: "/default-profile.png" },
